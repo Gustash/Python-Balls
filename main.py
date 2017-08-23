@@ -1,5 +1,6 @@
 from graphics import *
 from math import sqrt
+import random
 
 
 _update_last_time = time.time()
@@ -53,9 +54,15 @@ def draw_circle_with_line(point, line, window):
 
     line.undraw()
     circle = Circle(c_center, circle_radius)
-    circle.setFill("blue")
+    circle.setFill(gen_hex_colour_code())
     circle.draw(window)
     return circle
+
+
+# Use this function to generate a random hex color code
+def gen_hex_colour_code():
+    color = ''.join([random.choice('0123456789ABCDEF') for x in range(6)])
+    return '#' + color
 
 
 # Use this function to get the direction in the X vector
@@ -93,8 +100,7 @@ def calculate_direction(last_point_x, last_point_y, circle_center_x, circle_cent
 
 # Use this function to check if the given coordinates are inside the circle
 def in_circle(center_x, center_y, radius, x, y):
-    dist = sqrt((center_x - x) ** 2 + (center_y - y) ** 2)
-    return dist <= radius
+    return (center_x - x) ** 2 + (center_y - y) ** 2 <= radius**2
 ########################################################################################################################
 
 
